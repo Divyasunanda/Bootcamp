@@ -1,0 +1,139 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/):
+
+Current Mongosh Log ID: 64c0c2b34be2619cf52a8c47
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1
+Using MongoDB:          6.0.8
+Using Mongosh:          1.10.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-07-26T09:42:13.634+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> db.divya.insertMany([{_id:1,name:"laptop",category:"electronics",price:20000,releasedate:ISODate("2011-05-14")},{_id:2,name:"mobile",category:"electronics",price:40000,releasedate:ISODate("2012-09-15")},{_id:3,name:"prada",category:"clothes",price:80000,releasedate:ISODate("2019-08-24")},{_id:4,name:"fendi",category:"clothes",price:2000,releasedate:ISODate("2021-09-12")},{_id:5,name:"airforce-1",category:"shoes",price:2000,releasedate:ISODate("2022-03-14")}])
+{
+  acknowledged: true,
+  insertedIds: { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 }
+}
+test> db.divya.find()
+[
+  {
+    _id: 1,
+    name: 'laptop',
+    category: 'electronics',
+    price: 20000,
+    releasedate: ISODate("2011-05-14T00:00:00.000Z")
+  },
+  {
+    _id: 2,
+    name: 'mobile',
+    category: 'electronics',
+    price: 40000,
+    releasedate: ISODate("2012-09-15T00:00:00.000Z")
+  },
+  {
+    _id: 3,
+    name: 'prada',
+    category: 'clothes',
+    price: 80000,
+    releasedate: ISODate("2019-08-24T00:00:00.000Z")
+  },
+  {
+    _id: 4,
+    name: 'fendi',
+    category: 'clothes',
+    price: 2000,
+    releasedate: ISODate("2021-09-12T00:00:00.000Z")
+  },
+  {
+    _id: 5,
+    name: 'airforce-1',
+    category: 'shoes',
+    price: 2000,
+    releasedate: ISODate("2022-03-14T00:00:00.000Z")
+  }
+]
+test> db.divya.find({price: {$eq:899}, {name:1,price:1})
+Uncaught:
+SyntaxError: Unexpected token (1:33)
+
+> 1 | db.divya.find({price: {$eq:899}, {name:1,price:1})
+    |                                  ^
+  2 |
+
+test> db.divya.find({price: {$eq:899}}, {name:1,price:1})
+
+test> db.divya.find({price: {$eq:80000}}, {name:1,price:1})
+[ { _id: 3, name: 'prada', price: 80000 } ]
+test> db.divya.find({price: {$eq:2000}}, {name:1,price:1})
+[
+  { _id: 4, name: 'fendi', price: 2000 },
+  { _id: 5, name: 'airforce-1', price: 2000 }
+]
+test> db.divya.insertMany([{name:"chandler",profession:"sarcasm"},{name:joey,profession:"actor"},{name:"ross",profession:"dinosaurs",age:30}])
+ReferenceError: joey is not defined
+test> db.divya.insertMany([{name:"chandler",profession:"sarcasm"},{name:"joey",profession:"actor"},{name:"ross",profession:"dinosaurs",age:30}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64c0cfc14be2619cf52a8c48"),
+    '1': ObjectId("64c0cfc14be2619cf52a8c49"),
+    '2': ObjectId("64c0cfc14be2619cf52a8c4a")
+  }
+}
+test> db.divya.find()
+[
+  {
+    _id: 1,
+    name: 'laptop',
+    category: 'electronics',
+    price: 20000,
+    releasedate: ISODate("2011-05-14T00:00:00.000Z")
+  },
+  {
+    _id: 2,
+    name: 'mobile',
+    category: 'electronics',
+    price: 40000,
+    releasedate: ISODate("2012-09-15T00:00:00.000Z")
+  },
+  {
+    _id: 3,
+    name: 'prada',
+    category: 'clothes',
+    price: 80000,
+    releasedate: ISODate("2019-08-24T00:00:00.000Z")
+  },
+  {
+    _id: 4,
+    name: 'fendi',
+    category: 'clothes',
+    price: 2000,
+    releasedate: ISODate("2021-09-12T00:00:00.000Z")
+  },
+  {
+    _id: 5,
+    name: 'airforce-1',
+    category: 'shoes',
+    price: 2000,
+    releasedate: ISODate("2022-03-14T00:00:00.000Z")
+  },
+  {
+    _id: ObjectId("64c0cfc14be2619cf52a8c48"),
+    name: 'chandler',
+    profession: 'sarcasm'
+  },
+  {
+    _id: ObjectId("64c0cfc14be2619cf52a8c49"),
+    name: 'joey',
+    profession: 'actor'
+  },
+  {
+    _id: ObjectId("64c0cfc14be2619cf52a8c4a"),
+    name: 'ross',
+    profession: 'dinosaurs',
+    age: 30
+  }
+]
